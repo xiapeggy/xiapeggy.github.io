@@ -1,0 +1,32 @@
+<body>
+    <input type="number" id="numA" />
+    <input type="number" id="numB" />
+    <br>
+    <button id="addBtn">Add</button>
+    <span id="result"></span>
+    <script>
+        document.getElementById("addBtn").addEventListener("click", () => {
+            let numA = document.getElementById("numA").value;
+            let numB = document.getElementById("numB").value;
+            console.log(numA);
+            console.log(numB);
+            // test ccall
+            document.getElementById("result").innerText = Module.ccall(
+                    'PeggyAdd', // name of C function
+                    Number, // return type
+                    [Number,Number], // argument types
+                    [numA,numB] // arguments
+                );
+            // test cwrap
+            var add = Module.cwrap(
+            'PeggyAdd', // name of C function
+            Number, // return type
+            [Number,Number]     
+            );
+            console.log('test cwrap');
+            console.log(add(4,5));
+            console.log(add(5,6));
+        });
+    </script>
+    <script async src=index.js></script>
+</body>
